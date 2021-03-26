@@ -26,9 +26,9 @@ namespace Sorat_PSIP_project
         public void UpdateListView(string portIN, string portOUT, string itemName)
         {
             ListView statistics = Application.OpenForms["mainForm"].Controls["listView1"] as ListView;
-            //portINidx -> PORT 1/2 IN
+            //portINidx -> index of column PORT 1/2 IN
             var portINidx = statistics.Columns[portIN].Index;
-            //portOUTidx -> PORT 1/2 OUT
+            //portOUTidx -> index of column PORT 1/2 OUT
             var portOUTidx = statistics.Columns[portOUT].Index;
             var protocolIdx = statistics.Columns["Protocol"].Index;
             
