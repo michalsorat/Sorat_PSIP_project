@@ -29,48 +29,53 @@ namespace Sorat_PSIP_project
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem50 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem(new string[] {
             "Ethernet II",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem51 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem(new string[] {
             "ARP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem52 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem(new string[] {
             "IP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem53 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem(new string[] {
             "TCP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem54 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem(new string[] {
             "UDP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem55 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem(new string[] {
             "ICMP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem56 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem(new string[] {
             "HTTP",
             "0",
             "0",
             "0",
             "0"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem(new string[] {
+            "dsds",
+            "ds",
+            "ds",
+            ""}, -1);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -91,11 +96,10 @@ namespace Sorat_PSIP_project
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.MAC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Port = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Timer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button4 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -164,13 +168,13 @@ namespace Sorat_PSIP_project
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem50,
-            listViewItem51,
-            listViewItem52,
-            listViewItem53,
-            listViewItem54,
-            listViewItem55,
-            listViewItem56});
+            listViewItem17,
+            listViewItem18,
+            listViewItem19,
+            listViewItem20,
+            listViewItem21,
+            listViewItem22,
+            listViewItem23});
             this.listView1.Location = new System.Drawing.Point(11, 236);
             this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
@@ -307,11 +311,13 @@ namespace Sorat_PSIP_project
             // listView2
             // 
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.MAC,
+            this.Port,
+            this.Timer});
             this.listView2.GridLines = true;
             this.listView2.HideSelection = false;
+            this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem24});
             this.listView2.Location = new System.Drawing.Point(486, 58);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(272, 131);
@@ -320,46 +326,39 @@ namespace Sorat_PSIP_project
             this.listView2.View = System.Windows.Forms.View.Details;
             this.listView2.SelectedIndexChanged += new System.EventHandler(this.MacTableLV_SelectedIndexChanged);
             // 
-            // columnHeader1
+            // MAC
             // 
-            this.columnHeader1.Text = "MAC address";
-            this.columnHeader1.Width = 131;
+            this.MAC.Name = "MAC";
+            this.MAC.Text = "MAC address";
+            this.MAC.Width = 131;
             // 
-            // columnHeader2
+            // Port
             // 
-            this.columnHeader2.Text = "Port";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 76;
+            this.Port.Name = "Port";
+            this.Port.Text = "Port";
+            this.Port.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port.Width = 76;
             // 
-            // columnHeader3
+            // Timer
             // 
-            this.columnHeader3.Text = "Timer";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Timer.Name = "Timer";
+            this.Timer.Text = "Timer";
+            this.Timer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(390, 110);
+            this.numericUpDown1.Location = new System.Drawing.Point(385, 84);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(75, 28);
             this.numericUpDown1.TabIndex = 17;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.TimerNumericUpDown_ValueChanged);
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(390, 144);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "Set timer";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.SetTimerBtn_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(399, 86);
+            this.label5.Location = new System.Drawing.Point(393, 60);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 21);
             this.label5.TabIndex = 19;
@@ -383,7 +382,6 @@ namespace Sorat_PSIP_project
             this.ClientSize = new System.Drawing.Size(775, 420);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.label4);
@@ -436,9 +434,11 @@ namespace Sorat_PSIP_project
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ColumnHeader MAC;
+        private System.Windows.Forms.ColumnHeader Port;
+        private System.Windows.Forms.ColumnHeader Timer;
     }
 }
 

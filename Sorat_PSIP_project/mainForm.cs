@@ -102,11 +102,6 @@ namespace Sorat_PSIP_project
 
         }
 
-        private void SetTimerBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void MacTableLbl_Click(object sender, EventArgs e)
         {
 
@@ -114,7 +109,7 @@ namespace Sorat_PSIP_project
 
         private void ClearMacTableBtn_Click(object sender, EventArgs e)
         {
-
+            listView2.Items.Clear();
         }
 
         private void StatisticsLW_SelectedIndexChanged(object sender, EventArgs e)

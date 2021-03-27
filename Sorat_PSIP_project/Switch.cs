@@ -23,6 +23,27 @@ namespace Sorat_PSIP_project
             isRunning = false;
         }
 
+        public void UpdateMac(string Mac, string portNr)
+        {
+            ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
+            NumericUpDown timer = Application.OpenForms["mainForm"].Controls["numericUpDown1"] as NumericUpDown;
+            string timerVal = timer.Value.ToString();
+            //ak Mac tabulka obsahuje nejake zaznamy
+            if (MacTable.Items.Count > 0)
+            {
+                //hladam mac adresu v mac tabulke
+                foreach (ListViewItem item in MacTable.Items)
+                {
+                    if (item.Text == Mac)
+                    {
+                        item.SubItems[2].Text = timer.Value.ToString();
+                        return;
+                    }
+                }
+            }
+            MacTable.Items.Add(new ListViewItem(new string[] { Mac, portNr, timerVal }));
+        }
+
         public void UpdateListView(string portIN, string portOUT, string itemName)
         {
             ListView statistics = Application.OpenForms["mainForm"].Controls["listView1"] as ListView;
@@ -91,7 +112,8 @@ namespace Sorat_PSIP_project
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
                             txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
-                            UpdateStatistics(packet, "Port1IN", "Port1OUT");
+                            UpdateStatistics(packet, "Port1IN", "Port2OUT");
+                            UpdateMac(packet.Ethernet.Source.ToString(), "1");
                             p2.SendPacket(packet);
                             break;
                         default:
@@ -111,7 +133,7 @@ namespace Sorat_PSIP_project
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
                             txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
-                            UpdateStatistics(packet, "Port2IN", "Port2OUT");
+                            UpdateStatistics(packet, "Port2IN", "Port1OUT");
                             p1.SendPacket(packet);
                             break;
                         default:
