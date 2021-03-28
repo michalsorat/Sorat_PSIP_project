@@ -7,11 +7,13 @@ using PcapDotNet.Packets;
 using System.Threading;
 using PcapDotNet.Core;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Sorat_PSIP_project
 {
     class Switch
     {
+        private static System.Timers.Timer TTimer = new System.Timers.Timer(1000);
         public bool isRunning = false;
         public void Start()
         {
@@ -23,25 +25,65 @@ namespace Sorat_PSIP_project
             isRunning = false;
         }
 
+        public void Tiktok(object source, ElapsedEventArgs e)
+        {
+            ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
+            foreach (ListViewItem item in MacTable.Items)
+            {
+                if (Int32.Parse(item.SubItems[2].Text) <= 0)
+                {
+                    MacTable.Items.Remove(item);
+                }
+                else
+                {
+                    int tmp = Int32.Parse(item.SubItems[2].Text);
+                    tmp--;
+                    item.SubItems[2].Text = tmp.ToString();
+                }
+            }
+        }
+
         public void UpdateMac(string Mac, string portNr)
         {
             ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
             NumericUpDown timer = Application.OpenForms["mainForm"].Controls["numericUpDown1"] as NumericUpDown;
+            Boolean foundMatch = false;
             string timerVal = timer.Value.ToString();
-            //ak Mac tabulka obsahuje nejake zaznamy
-            if (MacTable.Items.Count > 0)
+            //timer pre zaznamy v mac tabulke
+            if (TTimer.Enabled == false)
             {
-                //hladam mac adresu v mac tabulke
-                foreach (ListViewItem item in MacTable.Items)
+                TTimer.Elapsed += Tiktok;
+                TTimer.AutoReset = true;
+                TTimer.Enabled = true;
+            }
+            //hladam mac adresu v mac tabulke
+            foreach (ListViewItem item in MacTable.Items)
+            {
+                //ak sa najde zhoda -> záznam s danou mac adresou už existuje -> resetujem timer
+                if (item.Text.Equals(Mac))
                 {
-                    if (item.Text == Mac)
-                    {
-                        item.SubItems[2].Text = timer.Value.ToString();
-                        return;
-                    }
+                    item.SubItems[2].Text = timer.Value.ToString();
+                    foundMatch = true;
                 }
             }
-            MacTable.Items.Add(new ListViewItem(new string[] { Mac, portNr, timerVal }));
+            //ak záznam v mac tabulke ešte neexistuje -> vytvorím nový záznam
+            if (!foundMatch)
+            {
+                MacTable.Items.Add(new ListViewItem(new string[] { Mac, portNr, timerVal }));
+            }                   
+        }
+
+        public string FindDstInTable(string dstMac)
+        {
+            ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
+            foreach (ListViewItem item in MacTable.Items)
+            {
+                if (item.Text.Equals(dstMac))
+                {
+                    return item.SubItems[1].Text;
+                }
+            }
+            return "0";
         }
 
         public void UpdateListView(string portIN, string portOUT, string itemName)
@@ -111,9 +153,23 @@ namespace Sorat_PSIP_project
                     {
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
-                            txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
+                            //updatuje štatistiky
                             UpdateStatistics(packet, "Port1IN", "Port2OUT");
+                            //updatuje mac tabuľku
                             UpdateMac(packet.Ethernet.Source.ToString(), "1");
+                            //hľadá zhodu medzi dst mac a záznamami v mac tabulke
+                            var port = FindDstInTable(packet.Ethernet.Destination.ToString());
+                            switch (port)
+                            {
+                                case "1":
+                                    txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
+                                    p2.SendPacket(packet);
+                                    break;
+                                default:
+                                    txtB1.Text += "Received packet on PORT 1 -> BROADCAST\r\n";
+                                    p2.SendPacket(packet);
+                                    break;
+                            }
                             p2.SendPacket(packet);
                             break;
                         default:
@@ -132,9 +188,23 @@ namespace Sorat_PSIP_project
                     {
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
-                            txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
+                            //updatuje štatistiky
                             UpdateStatistics(packet, "Port2IN", "Port1OUT");
-                            p1.SendPacket(packet);
+                            //updatuje mac tabuľku
+                            UpdateMac(packet.Ethernet.Source.ToString(), "2");
+                            //hľadá zhodu medzi dst mac a záznamami v mac tabulke
+                            var port = FindDstInTable(packet.Ethernet.Destination.ToString());
+                            switch (port)
+                            {
+                                case "1":
+                                    txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
+                                    p2.SendPacket(packet);
+                                    break;
+                                default:
+                                    txtB1.Text += "Received packet on PORT 2 -> BROADCAST\r\n";
+                                    p2.SendPacket(packet);
+                                    break;
+                            }
                             break;
                         default:
                             throw new InvalidOperationException(result + "This shouldn't be here -> error");

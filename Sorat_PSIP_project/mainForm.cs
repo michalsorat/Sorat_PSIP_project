@@ -119,6 +119,7 @@ namespace Sorat_PSIP_project
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Control.CheckForIllegalCrossThreadCalls = false;
             foreach (LibPcapLiveDevice device in devices)
             {
                 if (!device.Interface.Addresses.Exists(a => a != null && a.Addr != null && a.Addr.ipAddress != null)) continue;
