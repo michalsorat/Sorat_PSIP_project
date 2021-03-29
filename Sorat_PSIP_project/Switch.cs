@@ -65,6 +65,11 @@ namespace Sorat_PSIP_project
                     item.SubItems[2].Text = timer.Value.ToString();
                     foundMatch = true;
                 }
+                //vymena portov -> zaznam už je v mac tabulke ale port z ktorého mi prišiel je iný ako ten v tabuľke -> updatujem port
+                if (item.Text.Equals(Mac) && !(item.SubItems[1].Text.Equals(portNr)))
+                {
+                    item.SubItems[1].Text = portNr;
+                }
             }
             //ak záznam v mac tabulke ešte neexistuje -> vytvorím nový záznam
             if (!foundMatch)
@@ -157,20 +162,26 @@ namespace Sorat_PSIP_project
                             UpdateStatistics(packet, "Port1IN", "Port2OUT");
                             //updatuje mac tabuľku
                             UpdateMac(packet.Ethernet.Source.ToString(), "1");
-                            //hľadá zhodu medzi dst mac a záznamami v mac tabulke
-                            var port = FindDstInTable(packet.Ethernet.Destination.ToString());
-                            switch (port)
+                            if (packet.Ethernet.Destination.ToString().Equals(packet.Ethernet.Source.ToString()))
+                                break;
+                            else
                             {
-                                case "1":
-                                    txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
-                                    p2.SendPacket(packet);
-                                    break;
-                                default:
-                                    txtB1.Text += "Received packet on PORT 1 -> BROADCAST\r\n";
-                                    p2.SendPacket(packet);
-                                    break;
+                                //hľadá zhodu medzi dst mac a záznamami v mac tabulke
+                                var port = FindDstInTable(packet.Ethernet.Destination.ToString());
+                                switch (port)
+                                {
+                                    case "1":
+                                        break;
+                                    case "2":
+                                        txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
+                                        p2.SendPacket(packet);
+                                        break;
+                                    case "0":
+                                        txtB1.Text += "Received packet on PORT 1 -> BROADCAST\r\n";
+                                        p2.SendPacket(packet);
+                                        break;
+                                }
                             }
-                            p2.SendPacket(packet);
                             break;
                         default:
                             throw new InvalidOperationException(result + "This shouldn't be here -> error");
@@ -192,20 +203,27 @@ namespace Sorat_PSIP_project
                             UpdateStatistics(packet, "Port2IN", "Port1OUT");
                             //updatuje mac tabuľku
                             UpdateMac(packet.Ethernet.Source.ToString(), "2");
-                            //hľadá zhodu medzi dst mac a záznamami v mac tabulke
-                            var port = FindDstInTable(packet.Ethernet.Destination.ToString());
-                            switch (port)
+                            if (packet.Ethernet.Destination.ToString().Equals(packet.Ethernet.Source.ToString()))
+                                break;
+                            else
                             {
-                                case "1":
-                                    txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
-                                    p2.SendPacket(packet);
-                                    break;
-                                default:
-                                    txtB1.Text += "Received packet on PORT 2 -> BROADCAST\r\n";
-                                    p2.SendPacket(packet);
-                                    break;
+                                //hľadá zhodu medzi dst mac a záznamami v mac tabulke
+                                var port = FindDstInTable(packet.Ethernet.Destination.ToString());
+                                switch (port)
+                                {
+                                    case "1":
+                                        txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
+                                        p2.SendPacket(packet);
+                                        break;
+                                    case "2":
+                                        break;
+                                    case "0":
+                                        txtB1.Text += "Received packet on PORT 2 -> BROADCAST\r\n";
+                                        p2.SendPacket(packet);
+                                        break;
+                                }
+                                break;
                             }
-                            break;
                         default:
                             throw new InvalidOperationException(result + "This shouldn't be here -> error");
                     }
