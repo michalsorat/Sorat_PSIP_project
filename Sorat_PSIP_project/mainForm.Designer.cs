@@ -29,43 +29,43 @@ namespace Sorat_PSIP_project
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem(new string[] {
             "Ethernet II",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem(new string[] {
             "ARP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem(new string[] {
             "IP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
-            "TCP",
-            "0",
-            "0",
-            "0",
-            "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
-            "UDP",
-            "0",
-            "0",
-            "0",
-            "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem(new string[] {
             "ICMP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem40 = new System.Windows.Forms.ListViewItem(new string[] {
+            "UDP",
+            "0",
+            "0",
+            "0",
+            "0"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem41 = new System.Windows.Forms.ListViewItem(new string[] {
+            "TCP",
+            "0",
+            "0",
+            "0",
+            "0"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem42 = new System.Windows.Forms.ListViewItem(new string[] {
             "HTTP",
             "0",
             "0",
@@ -97,6 +97,35 @@ namespace Sorat_PSIP_project
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
+            this.listView3 = new System.Windows.Forms.ListView();
+            this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.portFilter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.portDirection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.protocolFilter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.macAddDir = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.macAdd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ipAddDir = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ipAdd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label6 = new System.Windows.Forms.Label();
+            this.portFilterCB = new System.Windows.Forms.ComboBox();
+            this.dirFilter = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -105,6 +134,7 @@ namespace Sorat_PSIP_project
             // 
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(255, 32);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
@@ -122,7 +152,7 @@ namespace Sorat_PSIP_project
             this.radioButton2.Location = new System.Drawing.Point(12, 61);
             this.radioButton2.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(47, 17);
+            this.radioButton2.Size = new System.Drawing.Size(54, 20);
             this.radioButton2.TabIndex = 1;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Stop";
@@ -135,7 +165,7 @@ namespace Sorat_PSIP_project
             this.radioButton1.Location = new System.Drawing.Point(12, 32);
             this.radioButton1.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 17);
+            this.radioButton1.Size = new System.Drawing.Size(55, 20);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.Text = "Start";
             this.radioButton1.UseVisualStyleBackColor = true;
@@ -143,6 +173,7 @@ namespace Sorat_PSIP_project
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(694, 389);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
@@ -160,16 +191,17 @@ namespace Sorat_PSIP_project
             this.Port1OUT,
             this.Port2IN,
             this.Port2OUT});
+            this.listView1.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7});
+            listViewItem36,
+            listViewItem37,
+            listViewItem38,
+            listViewItem39,
+            listViewItem40,
+            listViewItem41,
+            listViewItem42});
             this.listView1.Location = new System.Drawing.Point(11, 236);
             this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
@@ -188,6 +220,7 @@ namespace Sorat_PSIP_project
             // Port1IN
             // 
             this.Port1IN.Name = "Port1IN";
+            this.Port1IN.Tag = "";
             this.Port1IN.Text = "Port 1 IN";
             this.Port1IN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Port1IN.Width = 80;
@@ -195,6 +228,7 @@ namespace Sorat_PSIP_project
             // Port1OUT
             // 
             this.Port1OUT.Name = "Port1OUT";
+            this.Port1OUT.Tag = "";
             this.Port1OUT.Text = "Port 1 OUT";
             this.Port1OUT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Port1OUT.Width = 80;
@@ -202,6 +236,7 @@ namespace Sorat_PSIP_project
             // Port2IN
             // 
             this.Port2IN.Name = "Port2IN";
+            this.Port2IN.Tag = "";
             this.Port2IN.Text = "Port 2 IN";
             this.Port2IN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Port2IN.Width = 80;
@@ -209,6 +244,7 @@ namespace Sorat_PSIP_project
             // Port2OUT
             // 
             this.Port2OUT.Name = "Port2OUT";
+            this.Port2OUT.Tag = "";
             this.Port2OUT.Text = "Port 2 OUT";
             this.Port2OUT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Port2OUT.Width = 80;
@@ -226,8 +262,8 @@ namespace Sorat_PSIP_project
             // 
             // comboBox1
             // 
-            this.comboBox1.FormattingEnabled = true;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(36, 48);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(179, 21);
@@ -236,8 +272,8 @@ namespace Sorat_PSIP_project
             // 
             // comboBox2
             // 
-            this.comboBox2.FormattingEnabled = true;
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(36, 132);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(179, 21);
@@ -247,9 +283,10 @@ namespace Sorat_PSIP_project
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(33, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.Size = new System.Drawing.Size(122, 16);
             this.label1.TabIndex = 9;
             this.label1.Text = "Choose interface 1";
             this.label1.Click += new System.EventHandler(this.ChooseInterface1_Click);
@@ -257,9 +294,10 @@ namespace Sorat_PSIP_project
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(33, 116);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.Size = new System.Drawing.Size(122, 16);
             this.label2.TabIndex = 10;
             this.label2.Text = "Choose interface 2";
             this.label2.Click += new System.EventHandler(this.ChooseInterface2_Click);
@@ -311,6 +349,7 @@ namespace Sorat_PSIP_project
             this.MAC,
             this.Port,
             this.Timer});
+            this.listView2.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView2.GridLines = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(486, 58);
@@ -377,6 +416,7 @@ namespace Sorat_PSIP_project
             // 
             // button5
             // 
+            this.button5.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.Location = new System.Drawing.Point(683, 195);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
@@ -385,11 +425,311 @@ namespace Sorat_PSIP_project
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.ClearMacTableBtn_Click);
             // 
+            // listView3
+            // 
+            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ID,
+            this.portFilter,
+            this.portDirection,
+            this.protocolFilter,
+            this.macAddDir,
+            this.macAdd,
+            this.ipAddDir,
+            this.ipAdd});
+            this.listView3.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView3.GridLines = true;
+            this.listView3.HideSelection = false;
+            this.listView3.Location = new System.Drawing.Point(779, 238);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(540, 146);
+            this.listView3.TabIndex = 21;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.View = System.Windows.Forms.View.Details;
+            // 
+            // ID
+            // 
+            this.ID.Text = "ID";
+            this.ID.Width = 27;
+            // 
+            // portFilter
+            // 
+            this.portFilter.DisplayIndex = 3;
+            this.portFilter.Text = "Port";
+            this.portFilter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.portFilter.Width = 44;
+            // 
+            // portDirection
+            // 
+            this.portDirection.Text = "IN/OUT";
+            this.portDirection.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.portDirection.Width = 55;
+            // 
+            // protocolFilter
+            // 
+            this.protocolFilter.DisplayIndex = 1;
+            this.protocolFilter.Text = "Protocol";
+            this.protocolFilter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.protocolFilter.Width = 67;
+            // 
+            // macAddDir
+            // 
+            this.macAddDir.Text = "Mac direction";
+            this.macAddDir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.macAddDir.Width = 82;
+            // 
+            // macAdd
+            // 
+            this.macAdd.Text = "Mac address";
+            this.macAdd.Width = 81;
+            // 
+            // ipAddDir
+            // 
+            this.ipAddDir.Text = "IP direction";
+            this.ipAddDir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ipAddDir.Width = 92;
+            // 
+            // ipAdd
+            // 
+            this.ipAdd.Text = "IP address";
+            this.ipAdd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ipAdd.Width = 88;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(819, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 16);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Port";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // portFilterCB
+            // 
+            this.portFilterCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.portFilterCB.FormattingEnabled = true;
+            this.portFilterCB.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.portFilterCB.Location = new System.Drawing.Point(821, 84);
+            this.portFilterCB.Name = "portFilterCB";
+            this.portFilterCB.Size = new System.Drawing.Size(121, 21);
+            this.portFilterCB.TabIndex = 23;
+            this.portFilterCB.SelectedIndexChanged += new System.EventHandler(this.portFilterCB_SelectedIndexChanged);
+            // 
+            // dirFilter
+            // 
+            this.dirFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dirFilter.FormattingEnabled = true;
+            this.dirFilter.Items.AddRange(new object[] {
+            "IN",
+            "OUT"});
+            this.dirFilter.Location = new System.Drawing.Point(822, 132);
+            this.dirFilter.Name = "dirFilter";
+            this.dirFilter.Size = new System.Drawing.Size(121, 21);
+            this.dirFilter.TabIndex = 24;
+            this.dirFilter.SelectedIndexChanged += new System.EventHandler(this.dirFilter_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(819, 113);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 16);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Direction";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(818, 32);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 23);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Filter";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(819, 163);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(60, 16);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Protocol";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(989, 113);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(65, 16);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Direction";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(989, 163);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 16);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Address";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(1153, 163);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(57, 16);
+            this.label12.TabIndex = 30;
+            this.label12.Text = "Address";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(1154, 113);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(65, 16);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Direction";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "Ethernet II",
+            "ARP",
+            "IP",
+            "ICMP",
+            "UDP",
+            "TCP",
+            "Http"});
+            this.comboBox5.Location = new System.Drawing.Point(821, 182);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(121, 21);
+            this.comboBox5.TabIndex = 32;
+            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Items.AddRange(new object[] {
+            "Destination",
+            "Source"});
+            this.comboBox6.Location = new System.Drawing.Point(992, 132);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(121, 21);
+            this.comboBox6.TabIndex = 33;
+            // 
+            // comboBox7
+            // 
+            this.comboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.Items.AddRange(new object[] {
+            "Destionation",
+            "Source"});
+            this.comboBox7.Location = new System.Drawing.Point(1156, 132);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(121, 21);
+            this.comboBox7.TabIndex = 34;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(992, 183);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(121, 20);
+            this.textBox2.TabIndex = 36;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(1156, 183);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(121, 20);
+            this.textBox3.TabIndex = 37;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(988, 84);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(104, 21);
+            this.label14.TabIndex = 38;
+            this.label14.Text = "Mac address";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(1152, 84);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(87, 21);
+            this.label15.TabIndex = 39;
+            this.label15.Text = "IP address";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(1188, 390);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(50, 20);
+            this.textBox4.TabIndex = 40;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(1244, 388);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 41;
+            this.button4.Text = "Delete filter";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(1111, 392);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(71, 16);
+            this.label16.TabIndex = 42;
+            this.label16.Text = "Choose ID";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 420);
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(1332, 442);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.comboBox7);
+            this.Controls.Add(this.comboBox6);
+            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.dirFilter);
+            this.Controls.Add(this.portFilterCB);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.listView3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDown1);
@@ -449,6 +789,35 @@ namespace Sorat_PSIP_project
         private System.Windows.Forms.ColumnHeader MAC;
         private System.Windows.Forms.ColumnHeader Port;
         private System.Windows.Forms.ColumnHeader Timer;
+        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox portFilterCB;
+        private System.Windows.Forms.ColumnHeader ID;
+        private System.Windows.Forms.ColumnHeader portFilter;
+        private System.Windows.Forms.ColumnHeader portDirection;
+        private System.Windows.Forms.ColumnHeader protocolFilter;
+        private System.Windows.Forms.ColumnHeader macAddDir;
+        private System.Windows.Forms.ColumnHeader macAdd;
+        private System.Windows.Forms.ColumnHeader ipAddDir;
+        private System.Windows.Forms.ColumnHeader ipAdd;
+        private System.Windows.Forms.ComboBox dirFilter;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label16;
     }
 }
 

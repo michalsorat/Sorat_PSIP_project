@@ -13,6 +13,7 @@ namespace Sorat_PSIP_project
 {
     class Switch
     {
+        private ReaderWriterLockSlim cacheLock = new ReaderWriterLockSlim();
         private static System.Timers.Timer TTimer = new System.Timers.Timer(1000);
         public bool isRunning = false;
         public void Start()
@@ -27,9 +28,10 @@ namespace Sorat_PSIP_project
 
         public void Tiktok(object source, ElapsedEventArgs e)
         {
-            ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
-            lock(MacTable)
+            cacheLock.EnterWriteLock();
+            try
             {
+                ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
                 foreach (ListViewItem item in MacTable.Items)
                 {
                     if (Int32.Parse(item.SubItems[2].Text) <= 0)
@@ -44,14 +46,14 @@ namespace Sorat_PSIP_project
                     }
                 }
             }
+            finally
+            {
+                cacheLock.ExitWriteLock();
+            }
         }
 
-        public void UpdateMac(string Mac, string portNr)
+        public void UpdateMac(string srcMac, string portNr)
         {
-            ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
-            NumericUpDown timer = Application.OpenForms["mainForm"].Controls["numericUpDown1"] as NumericUpDown;
-            Boolean foundMatch = false;
-            string timerVal = timer.Value.ToString();
             //timer pre zaznamy v mac tabulke
             if (TTimer.Enabled == false)
             {
@@ -60,18 +62,23 @@ namespace Sorat_PSIP_project
                 TTimer.Enabled = true;
             }
             //hladam mac adresu v mac tabulke
-            lock(MacTable)
+            cacheLock.EnterWriteLock();
+            try
             {
+                ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
+                NumericUpDown timer = Application.OpenForms["mainForm"].Controls["numericUpDown1"] as NumericUpDown;
+                Boolean foundMatch = false;
+                string timerVal = timer.Value.ToString();
                 foreach (ListViewItem item in MacTable.Items)
                 {
                     //ak sa najde zhoda -> záznam s danou mac adresou už existuje -> resetujem timer
-                    if (item.Text.Equals(Mac))
+                    if (item.Text.Equals(srcMac))
                     {
                         item.SubItems[2].Text = timer.Value.ToString();
                         foundMatch = true;
                     }
                     //vymena portov -> zaznam už je v mac tabulke ale port z ktorého mi prišiel je iný ako ten v tabuľke -> updatujem port
-                    if (item.Text.Equals(Mac) && !(item.SubItems[1].Text.Equals(portNr)))
+                    if (item.Text.Equals(srcMac) && !(item.SubItems[1].Text.Equals(portNr)))
                     {
                         item.SubItems[1].Text = portNr;
                     }
@@ -79,25 +86,37 @@ namespace Sorat_PSIP_project
                 //ak záznam v mac tabulke ešte neexistuje -> vytvorím nový záznam
                 if (!foundMatch)
                 {
-                    MacTable.Items.Add(new ListViewItem(new string[] { Mac, portNr, timerVal }));
+                    MacTable.Items.Add(new ListViewItem(new string[] { srcMac, portNr, timerVal }));
                 }
-            }                 
+            }
+            finally
+            {
+                cacheLock.ExitWriteLock();
+            }                        
         }
 
         public string FindDstInTable(string dstMac)
         {
-            ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
-            foreach (ListViewItem item in MacTable.Items)
+            cacheLock.EnterReadLock();
+            try
             {
-                if (item.Text.Equals(dstMac))
+                ListView MacTable = Application.OpenForms["mainForm"].Controls["listView2"] as ListView;
+                foreach (ListViewItem item in MacTable.Items)
                 {
-                    return item.SubItems[1].Text;
+                    if (item.Text.Equals(dstMac))
+                    {
+                        return item.SubItems[1].Text;
+                    }
                 }
+                return "0";
             }
-            return "0";
+            finally
+            {
+                cacheLock.ExitReadLock();
+            }
         }
 
-        public void UpdateListView(string portIN, string portOUT, string itemName)
+        public void UpdateListView(string portIN, string portOUT, List<string> itemNames)
         {
             ListView statistics = Application.OpenForms["mainForm"].Controls["listView1"] as ListView;
             //portINidx -> index of column PORT 1/2 IN
@@ -105,73 +124,89 @@ namespace Sorat_PSIP_project
             var protocolIdx = statistics.Columns["Protocol"].Index;
             if (portOUT.Equals(""))
             {
-                foreach (ListViewItem item in statistics.Items)
+                foreach(string itemName in itemNames)
                 {
-                    try
+                    foreach (ListViewItem item in statistics.Items)
                     {
-                        if (item.SubItems[protocolIdx].Text == itemName)
+                        try
                         {
-                            var nr = Int32.Parse(item.SubItems[portINidx].Text);
-                            nr++;
-                            item.SubItems[portINidx].Text = nr.ToString();
+                            if (item.SubItems[protocolIdx].Text == itemName)
+                            {
+                                //var nr = Int32.Parse(item.SubItems[portINidx].Text);
+                                //nr++;
+                                //item.SubItems[portINidx].Text = nr.ToString();
+                                item.SubItems[portINidx].Text = (Int32.Parse(item.SubItems[portINidx].Text)+1).ToString();
+                                break;
+                            }
                         }
+                        catch { }
                     }
-                    catch { }
                 }
+                
             }
             else
             {
                 var portOUTidx = statistics.Columns[portOUT].Index;
-                foreach (ListViewItem item in statistics.Items)
+                foreach(string itemName in itemNames)
                 {
-                    try
+                    foreach (ListViewItem item in statistics.Items)
                     {
-                        if (item.SubItems[protocolIdx].Text == itemName)
+                        try
                         {
-                            var nr1 = Int32.Parse(item.SubItems[portINidx].Text);
-                            nr1++;
-                            var nr2 = Int32.Parse(item.SubItems[portOUTidx].Text);
-                            nr2++;
-                            item.SubItems[portINidx].Text = nr1.ToString();
-                            item.SubItems[portOUTidx].Text = nr2.ToString();
+                            if (item.SubItems[protocolIdx].Text == itemName)
+                            {
+                                //var nr1 = Int32.Parse(item.SubItems[portINidx].Text);
+                                //nr1++;
+                                //var nr2 = Int32.Parse(item.SubItems[portOUTidx].Text);
+                                //nr2++;
+                                //item.SubItems[portINidx].Text = nr1.ToString();
+                                //item.SubItems[portOUTidx].Text = nr2.ToString();
+                                item.SubItems[portINidx].Text = (Int32.Parse(item.SubItems[portINidx].Text) + 1).ToString();
+                                item.SubItems[portOUTidx].Text = (Int32.Parse(item.SubItems[portOUTidx].Text) + 1).ToString();
+                                break;
+                            }
                         }
+                        catch { }
                     }
-                    catch { }
                 }
             }
         }
 
         public void UpdateStatistics(Packet packet, string portIN, string portOUT)
         {
+            //Ethernet->IP->{ICMP, TCP->http, UDP}
+            List<string> itemsToUpdate = new List<string>();
             if (packet.DataLink.Kind == DataLinkKind.Ethernet)
             {
-                UpdateListView(portIN, portOUT, "Ethernet II");
+                itemsToUpdate.Add("Ethernet II");
+                if (packet.Ethernet.EtherType == PcapDotNet.Packets.Ethernet.EthernetType.IpV4)
+                {
+                    itemsToUpdate.Add("IP");
+                    if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.InternetControlMessageProtocol)
+                    {
+                        itemsToUpdate.Add("ICMP");
+                    }
+                    else if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.Tcp)
+                    {
+                        itemsToUpdate.Add("TCP");
+                        if (packet.Ethernet.IpV4.Tcp.SourcePort == 80 || packet.Ethernet.IpV4.Tcp.DestinationPort == 80)
+                        {
+                            itemsToUpdate.Add("HTTP");
+                        }
+                    }
+                    else if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.Udp)
+                    {
+                        itemsToUpdate.Add("UDP");
+                    }
+                }
             }
-            if (packet.Ethernet.EtherType == PcapDotNet.Packets.Ethernet.EthernetType.Arp)
+            //ARP
+            else if (packet.Ethernet.EtherType == PcapDotNet.Packets.Ethernet.EthernetType.Arp)
             {
-                UpdateListView(portIN, portOUT, "ARP");
+                itemsToUpdate.Add("ARP");               
             }
-            if (packet.Ethernet.EtherType == PcapDotNet.Packets.Ethernet.EthernetType.IpV4)
-            {
-                UpdateListView(portIN, portOUT, "IP");
-            }
-            if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.InternetControlMessageProtocol)
-            {
-                UpdateListView(portIN, portOUT, "ICMP");
-            }
-            if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.Tcp)
-            {
-                UpdateListView(portIN, portOUT, "TCP");
-            }
-            if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.Udp)
-            {
-                UpdateListView(portIN, portOUT, "UDP");
-            }
-            //todo eror is datagram?
-            if (packet.Ethernet.IpV4.Tcp.Http.Version == PcapDotNet.Packets.Http.HttpVersion.Version11)
-            {
-                UpdateListView(portIN, portOUT, "HTTP");
-            }
+            if (itemsToUpdate.Count > 0)
+                UpdateListView(portIN, portOUT, itemsToUpdate);
         }
 
         public void Start_comunication(PacketCommunicator p1, PacketCommunicator p2)
@@ -229,7 +264,7 @@ namespace Sorat_PSIP_project
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
                             //updatuje mac tabuľku
-                            UpdateMac(packet.Ethernet.Source.ToString(), "2");
+                            UpdateMac(packet.Ethernet.Source.ToString(),"2");
                             //hľadá zhodu medzi dst mac a záznamami v mac tabulke
                             var port = FindDstInTable(packet.Ethernet.Destination.ToString());
                             switch (port)

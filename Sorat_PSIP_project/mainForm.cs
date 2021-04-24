@@ -112,6 +112,24 @@ namespace Sorat_PSIP_project
             listView2.Items.Clear();
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void portFilterCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void dirFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
         private void StatisticsLW_SelectedIndexChanged(object sender, EventArgs e)
         {
             
