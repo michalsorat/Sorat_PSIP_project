@@ -16,6 +16,7 @@ namespace Sorat_PSIP_project
     {
         PacketDevice LoopB1, LoopB2;
         PacketCommunicator p1, p2;
+        int id = 1;
         Switch sw = new Switch();
         LibPcapLiveDeviceList devices = LibPcapLiveDeviceList.Instance;
         IList<LivePacketDevice> allDevices = LivePacketDevice.AllLocalMachine;
@@ -70,13 +71,13 @@ namespace Sorat_PSIP_project
         }
 
         //select btn interface 1
-        private void SelectInterface1Lbl_Click(object sender, EventArgs e)
+        private void SelectInterface1Btn_Click(object sender, EventArgs e)
         {
             LoopB1 = allDevices[comboBox1.SelectedIndex];
             p1 = LoopB1.Open(1000, PacketDeviceOpenAttributes.Promiscuous | PacketDeviceOpenAttributes.NoCaptureLocal, 1);
         }
         //select btn interface 2
-        private void SelectInterface2Lbl_Click(object sender, EventArgs e)
+        private void SelectInterface2Btn_Click(object sender, EventArgs e)
         {
             LoopB2 = allDevices[comboBox2.SelectedIndex];
             p2 = LoopB2.Open(1000, PacketDeviceOpenAttributes.Promiscuous | PacketDeviceOpenAttributes.NoCaptureLocal, 1);
@@ -128,6 +129,58 @@ namespace Sorat_PSIP_project
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void filterBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] row = { id.ToString(), protFilterCB.SelectedItem.ToString(), dirFilter.SelectedItem.ToString(), portFilterCB.SelectedItem.ToString(), macDirCB.SelectedItem.ToString(), macAddrTxt.Text, ipDirCB.SelectedItem.ToString(), ipAddrTxt.Text };
+                id++;
+                var listViewItem = new ListViewItem(row);
+                filterTable.Items.Add(listViewItem);
+                warningLbl.Visible = false;
+            }
+            catch (NullReferenceException)
+            {
+                warningLbl.Visible = true;
+            }
+        }
+
+        private void warningLbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void delAllFilters_Click(object sender, EventArgs e)
+        {
+            filterTable.Items.Clear();
+        }
+
+        private void macDirCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void filterTable_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void delFilterBtn_Click(object sender, EventArgs e)
+        {
+            var idForDelete = idDelTxt.Text;
+            var id = filterTable.Columns["ID"].Index;
+            foreach(ListViewItem item in filterTable.Items)
+            {
+                if (idForDelete.Equals(item.SubItems[id].Text))
+                    item.Remove();
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void StatisticsLW_SelectedIndexChanged(object sender, EventArgs e)

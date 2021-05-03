@@ -29,43 +29,43 @@ namespace Sorat_PSIP_project
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Ethernet II",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "ARP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "IP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "ICMP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem40 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "UDP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem41 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new string[] {
             "TCP",
             "0",
             "0",
             "0",
             "0"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem42 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new string[] {
             "HTTP",
             "0",
             "0",
@@ -97,7 +97,7 @@ namespace Sorat_PSIP_project
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
-            this.listView3 = new System.Windows.Forms.ListView();
+            this.filterTable = new System.Windows.Forms.ListView();
             this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.portFilter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.portDirection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -116,16 +116,19 @@ namespace Sorat_PSIP_project
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.protFilterCB = new System.Windows.Forms.ComboBox();
+            this.macDirCB = new System.Windows.Forms.ComboBox();
+            this.ipDirCB = new System.Windows.Forms.ComboBox();
+            this.macAddrTxt = new System.Windows.Forms.TextBox();
+            this.ipAddrTxt = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.idDelTxt = new System.Windows.Forms.TextBox();
+            this.delFilterBtn = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
+            this.filterBtn = new System.Windows.Forms.Button();
+            this.warningLbl = new System.Windows.Forms.Label();
+            this.delAllFilters = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -195,13 +198,13 @@ namespace Sorat_PSIP_project
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem36,
-            listViewItem37,
-            listViewItem38,
-            listViewItem39,
-            listViewItem40,
-            listViewItem41,
-            listViewItem42});
+            listViewItem8,
+            listViewItem9,
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14});
             this.listView1.Location = new System.Drawing.Point(11, 236);
             this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
@@ -304,23 +307,25 @@ namespace Sorat_PSIP_project
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(140, 75);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
             this.button2.Text = "Select";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.SelectInterface1Lbl_Click);
+            this.button2.Click += new System.EventHandler(this.SelectInterface1Btn_Click);
             // 
             // button3
             // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(140, 159);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 12;
             this.button3.Text = "Select";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.SelectInterface2Lbl_Click);
+            this.button3.Click += new System.EventHandler(this.SelectInterface2Btn_Click);
             // 
             // label3
             // 
@@ -425,71 +430,78 @@ namespace Sorat_PSIP_project
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.ClearMacTableBtn_Click);
             // 
-            // listView3
+            // filterTable
             // 
-            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.filterTable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ID,
-            this.portFilter,
-            this.portDirection,
             this.protocolFilter,
+            this.portDirection,
+            this.portFilter,
             this.macAddDir,
             this.macAdd,
             this.ipAddDir,
             this.ipAdd});
-            this.listView3.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView3.GridLines = true;
-            this.listView3.HideSelection = false;
-            this.listView3.Location = new System.Drawing.Point(779, 238);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(540, 146);
-            this.listView3.TabIndex = 21;
-            this.listView3.UseCompatibleStateImageBehavior = false;
-            this.listView3.View = System.Windows.Forms.View.Details;
+            this.filterTable.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterTable.GridLines = true;
+            this.filterTable.HideSelection = false;
+            this.filterTable.Location = new System.Drawing.Point(779, 238);
+            this.filterTable.Name = "filterTable";
+            this.filterTable.Size = new System.Drawing.Size(540, 146);
+            this.filterTable.TabIndex = 21;
+            this.filterTable.UseCompatibleStateImageBehavior = false;
+            this.filterTable.View = System.Windows.Forms.View.Details;
+            this.filterTable.SelectedIndexChanged += new System.EventHandler(this.filterTable_SelectedIndexChanged);
             // 
             // ID
             // 
+            this.ID.Name = "ID";
             this.ID.Text = "ID";
             this.ID.Width = 27;
             // 
             // portFilter
             // 
-            this.portFilter.DisplayIndex = 3;
+            this.portFilter.Name = "portFilter";
             this.portFilter.Text = "Port";
             this.portFilter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.portFilter.Width = 44;
             // 
             // portDirection
             // 
+            this.portDirection.Name = "portDirection";
             this.portDirection.Text = "IN/OUT";
             this.portDirection.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.portDirection.Width = 55;
             // 
             // protocolFilter
             // 
-            this.protocolFilter.DisplayIndex = 1;
+            this.protocolFilter.Name = "protocolFilter";
             this.protocolFilter.Text = "Protocol";
             this.protocolFilter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.protocolFilter.Width = 67;
             // 
             // macAddDir
             // 
+            this.macAddDir.Name = "macAddDir";
             this.macAddDir.Text = "Mac direction";
             this.macAddDir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.macAddDir.Width = 82;
             // 
             // macAdd
             // 
+            this.macAdd.Name = "macAdd";
             this.macAdd.Text = "Mac address";
             this.macAdd.Width = 81;
             // 
             // ipAddDir
             // 
+            this.ipAddDir.Name = "ipAddDir";
             this.ipAddDir.Text = "IP direction";
             this.ipAddDir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ipAddDir.Width = 92;
             // 
             // ipAdd
             // 
+            this.ipAdd.Name = "ipAdd";
             this.ipAdd.Text = "IP address";
             this.ipAdd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ipAdd.Width = 88;
@@ -508,11 +520,12 @@ namespace Sorat_PSIP_project
             // portFilterCB
             // 
             this.portFilterCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.portFilterCB.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.portFilterCB.FormattingEnabled = true;
             this.portFilterCB.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.portFilterCB.Location = new System.Drawing.Point(821, 84);
+            "Loopback 1",
+            "Loopback 2"});
+            this.portFilterCB.Location = new System.Drawing.Point(821, 86);
             this.portFilterCB.Name = "portFilterCB";
             this.portFilterCB.Size = new System.Drawing.Size(121, 21);
             this.portFilterCB.TabIndex = 23;
@@ -575,7 +588,7 @@ namespace Sorat_PSIP_project
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(989, 163);
+            this.label11.Location = new System.Drawing.Point(989, 63);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 16);
             this.label11.TabIndex = 29;
@@ -585,7 +598,7 @@ namespace Sorat_PSIP_project
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(1153, 163);
+            this.label12.Location = new System.Drawing.Point(1152, 63);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(57, 16);
             this.label12.TabIndex = 30;
@@ -595,17 +608,17 @@ namespace Sorat_PSIP_project
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(1154, 113);
+            this.label13.Location = new System.Drawing.Point(1153, 113);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(65, 16);
             this.label13.TabIndex = 31;
             this.label13.Text = "Direction";
             // 
-            // comboBox5
+            // protFilterCB
             // 
-            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
+            this.protFilterCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.protFilterCB.FormattingEnabled = true;
+            this.protFilterCB.Items.AddRange(new object[] {
             "Ethernet II",
             "ARP",
             "IP",
@@ -613,55 +626,58 @@ namespace Sorat_PSIP_project
             "UDP",
             "TCP",
             "Http"});
-            this.comboBox5.Location = new System.Drawing.Point(821, 182);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 32;
-            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            this.protFilterCB.Location = new System.Drawing.Point(821, 182);
+            this.protFilterCB.Name = "protFilterCB";
+            this.protFilterCB.Size = new System.Drawing.Size(121, 21);
+            this.protFilterCB.TabIndex = 32;
+            this.protFilterCB.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
             // 
-            // comboBox6
+            // macDirCB
             // 
-            this.comboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
+            this.macDirCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.macDirCB.FormattingEnabled = true;
+            this.macDirCB.Items.AddRange(new object[] {
+            "",
             "Destination",
             "Source"});
-            this.comboBox6.Location = new System.Drawing.Point(992, 132);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 21);
-            this.comboBox6.TabIndex = 33;
+            this.macDirCB.Location = new System.Drawing.Point(992, 132);
+            this.macDirCB.Name = "macDirCB";
+            this.macDirCB.Size = new System.Drawing.Size(121, 21);
+            this.macDirCB.TabIndex = 33;
+            this.macDirCB.SelectedIndexChanged += new System.EventHandler(this.macDirCB_SelectedIndexChanged);
             // 
-            // comboBox7
+            // ipDirCB
             // 
-            this.comboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
-            "Destionation",
+            this.ipDirCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ipDirCB.FormattingEnabled = true;
+            this.ipDirCB.Items.AddRange(new object[] {
+            "",
+            "Destination",
             "Source"});
-            this.comboBox7.Location = new System.Drawing.Point(1156, 132);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(121, 21);
-            this.comboBox7.TabIndex = 34;
+            this.ipDirCB.Location = new System.Drawing.Point(1155, 132);
+            this.ipDirCB.Name = "ipDirCB";
+            this.ipDirCB.Size = new System.Drawing.Size(121, 21);
+            this.ipDirCB.TabIndex = 34;
             // 
-            // textBox2
+            // macAddrTxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(992, 183);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
-            this.textBox2.TabIndex = 36;
+            this.macAddrTxt.Location = new System.Drawing.Point(992, 86);
+            this.macAddrTxt.Name = "macAddrTxt";
+            this.macAddrTxt.Size = new System.Drawing.Size(121, 20);
+            this.macAddrTxt.TabIndex = 36;
             // 
-            // textBox3
+            // ipAddrTxt
             // 
-            this.textBox3.Location = new System.Drawing.Point(1156, 183);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
-            this.textBox3.TabIndex = 37;
+            this.ipAddrTxt.Location = new System.Drawing.Point(1155, 86);
+            this.ipAddrTxt.Name = "ipAddrTxt";
+            this.ipAddrTxt.Size = new System.Drawing.Size(121, 20);
+            this.ipAddrTxt.TabIndex = 37;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(988, 84);
+            this.label14.Location = new System.Drawing.Point(988, 34);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(104, 21);
             this.label14.TabIndex = 38;
@@ -671,54 +687,96 @@ namespace Sorat_PSIP_project
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(1152, 84);
+            this.label15.Location = new System.Drawing.Point(1151, 34);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(87, 21);
             this.label15.TabIndex = 39;
             this.label15.Text = "IP address";
             // 
-            // textBox4
+            // idDelTxt
             // 
-            this.textBox4.Location = new System.Drawing.Point(1188, 390);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(50, 20);
-            this.textBox4.TabIndex = 40;
+            this.idDelTxt.Location = new System.Drawing.Point(859, 389);
+            this.idDelTxt.Name = "idDelTxt";
+            this.idDelTxt.Size = new System.Drawing.Size(50, 20);
+            this.idDelTxt.TabIndex = 40;
+            this.idDelTxt.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
-            // button4
+            // delFilterBtn
             // 
-            this.button4.Location = new System.Drawing.Point(1244, 388);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 41;
-            this.button4.Text = "Delete filter";
-            this.button4.UseVisualStyleBackColor = true;
+            this.delFilterBtn.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delFilterBtn.Location = new System.Drawing.Point(915, 387);
+            this.delFilterBtn.Name = "delFilterBtn";
+            this.delFilterBtn.Size = new System.Drawing.Size(75, 23);
+            this.delFilterBtn.TabIndex = 41;
+            this.delFilterBtn.Text = "Delete filter";
+            this.delFilterBtn.UseVisualStyleBackColor = true;
+            this.delFilterBtn.Click += new System.EventHandler(this.delFilterBtn_Click);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(1111, 392);
+            this.label16.Location = new System.Drawing.Point(782, 393);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(71, 16);
             this.label16.TabIndex = 42;
             this.label16.Text = "Choose ID";
+            // 
+            // filterBtn
+            // 
+            this.filterBtn.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterBtn.Location = new System.Drawing.Point(1080, 180);
+            this.filterBtn.Name = "filterBtn";
+            this.filterBtn.Size = new System.Drawing.Size(112, 23);
+            this.filterBtn.TabIndex = 43;
+            this.filterBtn.Text = "ADD this filter";
+            this.filterBtn.UseVisualStyleBackColor = true;
+            this.filterBtn.Click += new System.EventHandler(this.filterBtn_Click);
+            // 
+            // warningLbl
+            // 
+            this.warningLbl.AutoSize = true;
+            this.warningLbl.BackColor = System.Drawing.Color.Transparent;
+            this.warningLbl.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warningLbl.ForeColor = System.Drawing.Color.Red;
+            this.warningLbl.Location = new System.Drawing.Point(1090, 208);
+            this.warningLbl.Name = "warningLbl";
+            this.warningLbl.Size = new System.Drawing.Size(92, 16);
+            this.warningLbl.TabIndex = 44;
+            this.warningLbl.Text = "Unfilled data!";
+            this.warningLbl.Visible = false;
+            this.warningLbl.Click += new System.EventHandler(this.warningLbl_Click);
+            // 
+            // delAllFilters
+            // 
+            this.delAllFilters.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delAllFilters.Location = new System.Drawing.Point(1244, 387);
+            this.delAllFilters.Name = "delAllFilters";
+            this.delAllFilters.Size = new System.Drawing.Size(75, 23);
+            this.delAllFilters.TabIndex = 45;
+            this.delAllFilters.Text = "Delete all";
+            this.delAllFilters.UseVisualStyleBackColor = true;
+            this.delAllFilters.Click += new System.EventHandler(this.delAllFilters_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1332, 442);
+            this.ClientSize = new System.Drawing.Size(1338, 432);
+            this.Controls.Add(this.delAllFilters);
+            this.Controls.Add(this.warningLbl);
+            this.Controls.Add(this.filterBtn);
             this.Controls.Add(this.label16);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.delFilterBtn);
+            this.Controls.Add(this.idDelTxt);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.comboBox7);
-            this.Controls.Add(this.comboBox6);
-            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.ipAddrTxt);
+            this.Controls.Add(this.macAddrTxt);
+            this.Controls.Add(this.ipDirCB);
+            this.Controls.Add(this.macDirCB);
+            this.Controls.Add(this.protFilterCB);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -729,7 +787,7 @@ namespace Sorat_PSIP_project
             this.Controls.Add(this.dirFilter);
             this.Controls.Add(this.portFilterCB);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.listView3);
+            this.Controls.Add(this.filterTable);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDown1);
@@ -789,7 +847,7 @@ namespace Sorat_PSIP_project
         private System.Windows.Forms.ColumnHeader MAC;
         private System.Windows.Forms.ColumnHeader Port;
         private System.Windows.Forms.ColumnHeader Timer;
-        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView filterTable;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox portFilterCB;
         private System.Windows.Forms.ColumnHeader ID;
@@ -808,16 +866,19 @@ namespace Sorat_PSIP_project
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.ComboBox comboBox6;
-        private System.Windows.Forms.ComboBox comboBox7;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.ComboBox protFilterCB;
+        private System.Windows.Forms.ComboBox macDirCB;
+        private System.Windows.Forms.ComboBox ipDirCB;
+        private System.Windows.Forms.TextBox macAddrTxt;
+        private System.Windows.Forms.TextBox ipAddrTxt;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox idDelTxt;
+        private System.Windows.Forms.Button delFilterBtn;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button filterBtn;
+        private System.Windows.Forms.Label warningLbl;
+        private System.Windows.Forms.Button delAllFilters;
     }
 }
 

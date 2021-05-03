@@ -116,7 +116,7 @@ namespace Sorat_PSIP_project
             }
         }
 
-        public void UpdateListView(string portIN, string portOUT, List<string> itemNames)
+        public void UpdateStatistics(string portIN, string portOUT, List<string> itemNames)
         {
             ListView statistics = Application.OpenForms["mainForm"].Controls["listView1"] as ListView;
             //portINidx -> index of column PORT 1/2 IN
@@ -172,41 +172,107 @@ namespace Sorat_PSIP_project
             }
         }
 
-        public void UpdateStatistics(Packet packet, string portIN, string portOUT)
+        public List<string> FindProtocols(Packet packet)
         {
             //Ethernet->IP->{ICMP, TCP->http, UDP}
-            List<string> itemsToUpdate = new List<string>();
+            List<string> protocolList = new List<string>();
             if (packet.DataLink.Kind == DataLinkKind.Ethernet)
             {
-                itemsToUpdate.Add("Ethernet II");
+                protocolList.Add("Ethernet II");
                 if (packet.Ethernet.EtherType == PcapDotNet.Packets.Ethernet.EthernetType.IpV4)
                 {
-                    itemsToUpdate.Add("IP");
+                    protocolList.Add("IP");
                     if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.InternetControlMessageProtocol)
                     {
-                        itemsToUpdate.Add("ICMP");
+                        protocolList.Add("ICMP");
                     }
                     else if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.Tcp)
                     {
-                        itemsToUpdate.Add("TCP");
+                        protocolList.Add("TCP");
                         if (packet.Ethernet.IpV4.Tcp.SourcePort == 80 || packet.Ethernet.IpV4.Tcp.DestinationPort == 80)
                         {
-                            itemsToUpdate.Add("HTTP");
+                            protocolList.Add("HTTP");
                         }
                     }
                     else if (packet.Ethernet.IpV4.Protocol == PcapDotNet.Packets.IpV4.IpV4Protocol.Udp)
                     {
-                        itemsToUpdate.Add("UDP");
+                        protocolList.Add("UDP");
                     }
                 }
             }
             //ARP
             else if (packet.Ethernet.EtherType == PcapDotNet.Packets.Ethernet.EthernetType.Arp)
             {
-                itemsToUpdate.Add("ARP");               
+                protocolList.Add("ARP");               
             }
-            if (itemsToUpdate.Count > 0)
-                UpdateListView(portIN, portOUT, itemsToUpdate);
+            return protocolList;
+        }
+
+        public Boolean ApplyFilter(List<string> protocolsOfPacket, string portNr, Packet packet)
+        {
+            ListView filterTable = Application.OpenForms["mainForm"].Controls["filterTable"] as ListView;
+            if (filterTable == null)
+                return true;
+            cacheLock.EnterReadLock();
+            try
+            {
+                var protocolColumn = filterTable.Columns["protocolFilter"].Index;
+                var macDirColumn = filterTable.Columns["macAddDir"].Index;
+                var macAddColumn = filterTable.Columns["macAdd"].Index;
+                var ipDirColumn = filterTable.Columns["ipAddDir"].Index;
+                var ipAddColumn = filterTable.Columns["ipAdd"].Index;
+                var x = "";
+                if (portNr.Equals("Port1IN") || portNr.Equals("Port2IN"))
+                    x = "IN";
+                else if (portNr.Equals("Port1OUT") || portNr.Equals("Port2OUT"))
+                    x = "OUT";
+                switch (x)
+                {
+                    case ("IN"):
+                        //check if protocol of packet is in filterTable (if yes -> return false)
+                        foreach (ListViewItem filter in filterTable.Items)
+                        {
+                            var ipAdd = filter.SubItems[ipAddColumn].Text;
+                            var macAdd = filter.SubItems[macAddColumn].Text;
+                            //ak sa source ip alebo mac adresa rovna s ip alebo mac adresou nastavenou vo filtry
+                            if ((packet.Ethernet.Source.ToString().Equals(macAdd) && filter.SubItems[macDirColumn].Text.Equals("Source")) || (packet.IpV4.Source.ToString().Equals(ipAdd) && filter.SubItems[ipDirColumn].Text.Equals("Source")))
+                            {
+                                //check if protocol of packet is in filterTable (if yes -> return false)
+                                foreach (string protocol in protocolsOfPacket)
+                                {
+                                    if (protocol.Equals(filter.SubItems[protocolColumn].Text))
+                                        return false;
+                                }
+                            }
+                        }
+                        return true;
+                    case ("OUT"):
+                        foreach (ListViewItem filter in filterTable.Items)
+                        {
+                            var ipAdd = filter.SubItems[ipAddColumn].Text;
+                            var macAdd = filter.SubItems[macAddColumn].Text;
+                            //ak sa destination ip alebo mac adresa rovna s ip alebo mac adresou nastavenou vo filtry
+                            if ((packet.Ethernet.Destination.ToString().Equals(macAdd) && filter.SubItems[macDirColumn].Text.Equals("Destination")) || (packet.IpV4.Destination.ToString().Equals(ipAdd) && filter.SubItems[ipDirColumn].Text.Equals("Destination")))
+                            {
+                                //check if protocol of packet is in filterTable (if yes -> return false)
+                                foreach (string protocol in protocolsOfPacket)
+                                {
+                                    if (protocol.Equals(filter.SubItems[protocolColumn].Text))
+                                        return false;
+                                }
+                            }
+                        }
+                        return true;
+                    case (""):
+                        break;
+                }
+                return true;
+            }
+            finally
+            {
+                cacheLock.ExitReadLock();
+            }
+            
         }
 
         public void Start_comunication(PacketCommunicator p1, PacketCommunicator p2)
@@ -223,29 +289,51 @@ namespace Sorat_PSIP_project
                     {
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
-                            //updatuje mac tabuľku
-                            UpdateMac(packet.Ethernet.Source.ToString(), "1");
-                            //hľadá zhodu medzi dst mac a záznamami v mac tabulke
-                            var port = FindDstInTable(packet.Ethernet.Destination.ToString());
-                            switch (port)
+                            var protocolList = FindProtocols(packet);
+                            if (ApplyFilter(protocolList, "Port1IN", packet))
                             {
-                                case "1":
-                                    txtB1.Text += "Packet thrown away\r\n";
-                                    UpdateStatistics(packet, "Port1IN", "");
-                                    break;
-                                case "2":
-                                    //updatuje štatistiky
-                                    UpdateStatistics(packet, "Port1IN", "Port2OUT");
-                                    txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
-                                    p2.SendPacket(packet);
-                                    break;
-                                case "0":
-                                    //updatuje štatistiky
-                                    UpdateStatistics(packet, "Port1IN", "Port2OUT");
-                                    txtB1.Text += "Received packet on PORT 1 -> BROADCAST\r\n";
-                                    p2.SendPacket(packet);
-                                    break;
+                                //updatuje mac tabuľku
+                                UpdateMac(packet.Ethernet.Source.ToString(), "1");
+                                //hľadá zhodu medzi dst mac a záznamami v mac tabulke
+                                var port = FindDstInTable(packet.Ethernet.Destination.ToString());
+                                switch (port)
+                                {
+                                    case "1":
+                                        if (ApplyFilter(protocolList, "Port1OUT", packet))
+                                        {
+                                            //updatuje štatistiky
+                                            UpdateStatistics("Port1IN", "", protocolList);
+                                            txtB1.Text += "Packet thrown away\r\n";
+                                        }
+                                        else
+                                            txtB1.Text += "Protocol on port 1 OUT applied\r\n";
+                                        break;
+                                    case "2":
+                                        //updatuje štatistiky
+                                        if (ApplyFilter(protocolList, "Port1OUT", packet))
+                                        {
+                                            UpdateStatistics("Port1IN", "Port2OUT", protocolList);
+                                            txtB1.Text += "Received packet on PORT 1 -> sending to PORT 2\r\n";
+                                            p2.SendPacket(packet);
+                                        }
+                                        else
+                                            txtB1.Text += "Protocol on port 1 OUT applied\r\n";
+                                        break;
+                                    case "0":
+                                        //updatuje štatistiky
+                                        if (ApplyFilter(protocolList, "Port1OUT", packet))
+                                        {
+                                            UpdateStatistics("Port1IN", "Port2OUT", protocolList);
+                                            txtB1.Text += "Received packet on PORT 1 -> BROADCAST\r\n";
+                                            p2.SendPacket(packet);
+                                        }
+                                        else
+                                            txtB1.Text += "Protocol on port 1 OUT applied\r\n";
+                                        break;
+                                }
                             }
+                            else
+                                txtB1.Text += "Protocol on port 1 IN applied\r\n";
                             break;
                         default:
                             throw new InvalidOperationException(result + "This shouldn't be here -> error");
@@ -263,28 +351,49 @@ namespace Sorat_PSIP_project
                     {
                         case PacketCommunicatorReceiveResult.Timeout: continue;
                         case PacketCommunicatorReceiveResult.Ok:
-                            //updatuje mac tabuľku
-                            UpdateMac(packet.Ethernet.Source.ToString(),"2");
-                            //hľadá zhodu medzi dst mac a záznamami v mac tabulke
-                            var port = FindDstInTable(packet.Ethernet.Destination.ToString());
-                            switch (port)
+                            var protocolList = FindProtocols(packet);
+                            if (ApplyFilter(protocolList, "Port2IN", packet))
                             {
-                                case "1":
-                                    //updatuje štatistiky
-                                    UpdateStatistics(packet, "Port2IN", "Port1OUT");
-                                    txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
-                                    p1.SendPacket(packet);
-                                    break;
-                                case "2":
-                                    txtB1.Text += "Packet thrown away\r\n";
-                                    UpdateStatistics(packet, "Port2IN", "");
-                                    break;
-                                case "0":
-                                    UpdateStatistics(packet, "Port2IN", "Port1OUT");
-                                    txtB1.Text += "Received packet on PORT 2 -> BROADCAST\r\n";
-                                    p1.SendPacket(packet);
-                                    break;
+                                //updatuje mac tabuľku
+                                UpdateMac(packet.Ethernet.Source.ToString(), "2");
+                                //hľadá zhodu medzi dst mac a záznamami v mac tabulke
+                                var port = FindDstInTable(packet.Ethernet.Destination.ToString());
+                                switch (port)
+                                {
+                                    case "1":
+                                        //updatuje štatistiky
+                                        if (ApplyFilter(protocolList, "Port2OUT", packet))
+                                        {
+                                            UpdateStatistics("Port2IN", "Port1OUT", protocolList);
+                                            txtB1.Text += "Received packet on PORT 2 -> sending to PORT 1\r\n";
+                                            p1.SendPacket(packet);
+                                        }
+                                        else
+                                            txtB1.Text += "Protocol on port 2 OUT applied\r\n";
+                                        break;
+                                    case "2":
+                                        if (ApplyFilter(protocolList, "Port2OUT", packet))
+                                        {
+                                            txtB1.Text += "Packet thrown away\r\n";
+                                            UpdateStatistics("Port2IN", "", protocolList);
+                                        }
+                                        else
+                                            txtB1.Text += "Protocol on port 2 OUT applied\r\n";
+                                        break;
+                                    case "0":
+                                        if (ApplyFilter(protocolList, "Port2OUT", packet))
+                                        {
+                                            UpdateStatistics("Port2IN", "Port1OUT", protocolList);
+                                            txtB1.Text += "Received packet on PORT 2 -> BROADCAST\r\n";
+                                            p1.SendPacket(packet);
+                                        }
+                                        else
+                                            txtB1.Text += "Protocol on port 2 OUT applied\r\n";
+                                        break;
+                                }
                             }
+                            else
+                                txtB1.Text += "Protocol on port 2 IN applied\r\n";
                             break;
                         default:
                             throw new InvalidOperationException(result + "This shouldn't be here -> error");
