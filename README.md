@@ -16,3 +16,9 @@ k daným portom.
 - UDP
 - ICMP
 - HTTP
+
+### Programovací jazyk
+C# vo vývojovom prostredí Visual Studio Enterprise 2019. 
+Použité knižnice:
+- PcapDotNet- analýza rámcov
+- WinPcap- prijímanie/odosielanie rámcov
